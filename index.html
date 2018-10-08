@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>What Videogame Should You Play?</title>
+
+<style>
+body {
+background-color: #3333aa;
+font-family: Helvetica;
+}
+#pics{
+  display: inline;
+}
+
+#pics input {
+    visibility:hidden;
+    width: 0px;
+}
+#pics input:checked + img{
+  border-style: solid;
+ border-width: 2px;
+ border-color: blue;
+}
+#main {
+width: 90%;
+max-width: 950px;
+border: 1px gray solid;
+margin: auto;
+padding: 20px;
+background-color: lightgrey;
+border-radius: 10px;
+}
+
+#header {
+margin-top: 0;
+border: 2px solid black;
+padding: 5px;
+height: 200px;
+background-image: url("headerimg.jpg");
+color: white;
+border-radius: 10px;
+}
+
+
+label {
+display: block;
+}
+
+input {
+width: 30px;
+margin-left: 20px;
+}
+
+h2 {
+clear: both;
+padding-top: 20px;
+margin-left: 20px;
+}
+
+button {
+width: 100px;
+margin-top: 20px;
+}
+
+
+</style>
+
+
+</head>
+<body>
+<div id="main">
+<div id="header">
+<h1>What Videogame Should You Play</h1>
+</div>
+<form id="form1">
+
+<h2>What is your favorite genre?</h2>
+<label for="Horror"><input type="radio" name="genre" value="gritty" id="Horror" />Horror</label>
+<label for="Action"><input type="radio" name="genre" value="exciting" id="Action" />Action</label>
+<label for="Comedy"><input type="radio" name="genre" value="fun" id="Comedy" />Comedy</label>
+<label for="Drama"><input type="radio" name="genre" value="real" id="Drama"/>Drama</label>
+<label for="Fantasy"><input type="radio" name="genre" value="creative" id="Fantasy"/>Fantasy</label>
+
+<h2>Have you played videogames before?</h2>
+<label for="never"><input type="radio" name="played" value="fun" id="never"/>Never in my life.</label>
+<label for="couple"><input type="radio" name="played" value="exciting" id="couple"/>A couple of times.</label>
+<label for="usedto"><input type="radio" name="played" value="real" id="usedto"/>I used to, but not as much anymore.</label>
+<label for="often"><input type="radio" name="played" value="creative" id="often" />Pretty Often.</label>
+<label for="always"><input type="radio" name="played" value="gritty" id="always" />Every chance I get!</label>
+
+<h2>What would be your weapon of choice?</h2>
+<label for="talk"><input type="radio" name="weapon" value="real" id="talk" />I have no need, all conflict can be avoided.</label>
+<label for="silent"><input type="radio" name="weapon" value="gritty" id="silent" />Something that lets me silently defeat my opponent before they notice me.</label>
+<label for="loud"><input type="radio" name="weapon" value="exciting" id="loud" />BIG, LOUD, AND DESTRUCTIVE!</label>
+<label for="close"><input type="radio" name="weapon" value="fun" id="close" />Getting up close and personal. Fists, swords, bats, etc.</label>
+<label for="spell"><input type="radio" name="weapon" value="creative" id="spell" />Spells and magic.</label>
+
+<h2>Which of these looks the most appealing?</h2>
+<label id=pics for="real"><input type="radio" name="graphic" value="real" id="real" /><img src="realistic.jpg" width="30%" ></label>
+<label id=pics for="mari"><input type="radio" name="graphic" value="fun" id="mari" /><img src="supermworld.jpg" width="30%"></label>
+<label id=pics for="okam"><input type="radio" name="graphic" value="creative" id="okam" /><img src="okami.jpg" width="30%"></label>
+<label id=pics for="cup"><input type="radio" name="graphic"  value="exciting" id="cup" /><img src="cuphead.jpg" width="30%"></label>
+<label id=pics for="cod"><input type="radio" name="graphic"  value="gritty" id="cod" /><img src="cod.jpg" width="30%"></label>
+
+
+<h2>How much time do you want to invest into the game?</h2>
+<label for="little"><input type="radio" name="invest" value="fun" id="little" />As little as possible.</label>
+<label for="week"><input type="radio" name="invest" value="exciting" id="week" />Maybe a couple of times a week.</label>
+<label for="spare"><input type="radio" name="invest" value="creative" id="spare" />I've got some time to spare.</label>
+<label for="occupy"><input type="radio" name="invest" value="real" id="occupy" />Keep me well occupied.</label>
+<label for="consume"><input type="radio" name="invest"  value="gritty" id="consume" />Consume my life.</label>
+
+<button type="submit" value="Submit">Submit</button>
+
+</form>
+
+<p>You should play...<span id="grade"></span></p>
+<p><img id="grade2" width="70%"></p>
+
+
+
+<script>
+document.getElementById("form1").onsubmit=function() {
+
+  document.getElementById("grade").innerHTML = ""; //clear score
+
+  //get answer values
+  genre = document.querySelector('input[name = "genre"]:checked').value;
+
+  played = document.querySelector('input[name = "played"]:checked').value;
+
+  weapon = document.querySelector('input[name = "weapon"]:checked').value;
+
+  graphic = document.querySelector('input[name = "graphic"]:checked').value;
+
+  invest = document.querySelector('input[name = "invest"]:checked').value;
+
+ // initialize score variables
+     fun = 0;
+     exciting = 0;
+     creative = 0;
+     real = 0;
+     gritty = 0;
+
+	  //function to calculate score for each variable
+     function eachscore(x){
+ 	  if(x == "fun") { fun = fun + 1}
+ 	  if(x == "exciting") { exciting = exciting + 1}
+ 	  if(x == "creative") { creative = creative + 1}
+ 	  if(x == "real") { real = real + 1}
+ 	  if(x == "gritty") { gritty = gritty + 1}
+ 	  }
+
+ //call function for each question
+    eachscore(eval("genre"));
+ 	  eachscore(eval("played"));
+ 	  eachscore(eval("weapon"));
+ 	  eachscore(eval("graphic"));
+ 	  eachscore(eval("invest"));
+
+//array of scores
+    all = [fun, exciting, creative, real, gritty];
+
+result = all.sort((a,b) => b - a); //sort scores highest to lowest
+all = [fun, exciting, creative, real, gritty]; //set the all array back to original positions
+
+      // what each position in the all array equals
+scores = [{index:0, feedback: "Fun"},
+{index:1, feedback: "Exciting"},
+{index:2, feedback: "Creative"},
+{index:3, feedback: "Real"},
+{index:4, feedback: "Gritty"}];
+
+
+var gameselect = []; //array for winning scores
+
+//If each category tied
+if (result[0] == 1) {
+  gameselect = ["special"]
+}
+else {
+//match top score to outcome
+for(i=0;i<all.length; i++) {
+if(result[0] == all[i]) {
+gameselect.push(scores[i].feedback);
+}
+}
+
+//find second place score
+var secondscore =[];
+
+if (gameselect.length < 2) {
+for(i=0;i<all.length; i++) {
+if(result[i]!== result[0]) {
+  secondscore = result[i];
+  break;
+}
+}
+
+//match second score to outcome
+if (secondscore !== 0) {
+for(i=0;i<all.length; i++) {
+if(all[i] == secondscore) {
+gameselect.push(scores[i].feedback);
+break;
+}
+}
+}
+//set second place to the same as first place if second place got 0 points
+else {
+  gameselect.push(gameselect[0]);
+}
+}
+}
+
+//make outcome easier to read for function
+gameselect = gameselect.join('');
+
+//game descriptions
+function populateInfo(gameInfo) {
+
+  gameInfo["special"]="Anthing! <br> Your taste are all across the board. Dive right into any videogame and you're sure to have a great time!";
+  gameInfo["FunFun"]="A Mobile game! <br /> You might not be the most hardcore, but you're still looking for some fun. Mobile games are quick, fun, and satisfactory.";
+  gameInfo["FunExciting"]= "Rocket League! <br>Described as 'soccer, but with rocket-powered cars', Rocket League has one to four players assigned to each of the two teams, using rocket-powered vehicles to hit a ball into their opponent's goal and score points over the course of a match. The game includes single-player and multiplayer modes which can be played both locally and online, including cross-platform play between the PlayStation 4 and Microsoft Windows versions, as well as cross-play between Xbox One, Switch, and Windows versions. Later updates for the game enabled the ability to modify core rules and added new game modes, including ones based on ice hockey and basketball.";
+  gameInfo["FunCreative"]="Portal! <br>Portal consists primarily of a series of puzzles that must be solved by teleporting the player's character and simple objects using 'the Aperture Science Handheld Portal Device', a device that can create inter-spatial portals between two flat planes. The player-character, Chell, is challenged and taunted by an artificial intelligence named GLaDOS (Genetic Lifeform and Disk Operating System) to complete each puzzle in the Aperture Science Enrichment Center using the portal gun with the promise of receiving cake when all the puzzles are completed. The game's unique physics allows kinetic energy to be retained through portals, requiring creative use of portals to maneuver through the test chambers.";
+  gameInfo["FunReal"]="Grand Theft Auto! <br>Gameplay focuses on an open world where the player can choose missions to progress an overall story, as well as engaging in side activities, all consisting of action-adventure, driving, third-person shooting, occasional role-playing, stealth and racing elements. The series focuses around many different protagonists who attempt to rise through the ranks of the criminal underworld, although their motives for doing so vary in each game.";
+  gameInfo["FunGritty"]="Red Dead Redemption! <br>Red Dead Redemption is set during the decline of the American frontier in the year 1911 and follows John Marston, a former outlaw whose wife and son are taken hostage by the government in ransom for his services as a hired gun. Having no other choice, Marston sets out to bring three members of his former gang to justice.";
+  gameInfo["ExcitingFun"]="a Mario game! <br>With over 500 million units sold worldwide, the overall Mario franchise is the best-selling video game franchise of all time.[1][2] Outside of the Super Mario platform series, other Mario genres include the Mario Kart racing series, sports games such as the Mario Tennis and Mario Golf series, role-playing games such as Mario & Luigi, Super Mario RPG and Paper Mario, and educational games such as Mario Is Missing!, Mario's Time Machine and Mario Teaches Typing.";
+  gameInfo["ExcitingExciting"]="Mario Party! <br /> You will love a game with excitment. Grab some friends and buckle up for a fast-paced exciting time together! Just try not to take the competition too personally.";
+  gameInfo["ExcitingCreative"]="The Elder Scrolls V: Skyrim <br>The game's main story revolves around the player character's quest to defeat Alduin the World-Eater, a dragon who is prophesied to destroy the world. The game is set 200 years after the events of Oblivion and takes place in the fictional province of Skyrim. Over the course of the game, the player completes quests and develops the character by improving skills. The game continues the open-world tradition of its predecessors by allowing the player to travel anywhere in the game world at any time, and to ignore or postpone the main storyline indefinitely.";
+  gameInfo["ExcitingReal"]="Assassin's Creed <br>It depicts the centuries-old struggle, now and then, between the Assassins, who fight for peace with free will, and the Templars, who desire peace through control. The series features historical fiction, science fiction and characters, intertwined with real-world historical events and figures. For the majority of time players would control an Assassin in the past history, while they also play as Desmond Miles or an Assassin Initiate in the present day, who hunt down their Templar targets.";
+  gameInfo["ExcitingGritty"]="Titanfall! <br>In Titanfall, players control 'pilots' and their mech-style Titans, and fight in six-on-six matches set in war-torn outer space colonies. The game is optimized for fast-paced, continual action, aided by wall-running abilities and populations of computer-controlled soldiers. ";
+  gameInfo["CreativeFun"]="Cuphead! <br>Cuphead was inspired by the rubber hose style of animation used in cartoons of the 1930s, such as the work of studios Fleischer and Walt Disney Animation, seeking to emulate their subversive and surrealist qualities. The game features one or two players taking control of animated characters Cuphead and his brother Mugman to fight through several levels that culminate in boss fights as to repay their debt to the devil.";
+  gameInfo["CreativeExciting"]="Rhythm Heaven! <br>Rhythm Heaven is played using the touch screen with the DS held vertically. Throughout the game, players use the stylus to play through several rhythm-based levels known as Rhythm Games, each with their own specific rules. Controls used include tapping the touch screen, holding the stylus down on the touch screen, dragging it across the screen and flicking it off the screen.";
+  gameInfo["CreativeCreative"]="Minecraft! <br /> You are creative through and through. Minecraft offers an expansive open-world that lets you design the world to your hearts content.";
+  gameInfo["CreativeReal"]="Life Is Strange! <br>The game's plot focuses on Max Caulfield, an 18-year-old photography student who discovers that she has the ability to rewind time at any moment, leading her every choice to enact the butterfly effect. After having foreseen an approaching storm, Max must take on the responsibility to prevent it from destroying her town. ";
+  gameInfo["CreativeGritty"]="Borderlands! <br>The game's story focuses on a group of four 'Vault Hunters', who travel to the distant planet Pandora to hunt down an alien vault, rumoured to contain advanced alien technology, finding themselves battle the local fauna and bandit population, but ultimately attempting to stop the head of a private corporation army reaching the vault first.";
+  gameInfo["RealFun"]="a Sports game! <br> Any game featuring your favorite sport such as FIFA, Madden, or NBA 2k";
+  gameInfo["RealExciting"]="Guitar Hero! <br>Use a guitar-shaped game controller to simulate playing lead, bass guitar, and rhythm guitar across numerous rock music songs. Match notes that scroll on-screen to colored fret buttons on the controller, strumming the controller in time to the music in order to score points, and keep the virtual audience excited. ";
+  gameInfo["RealCreative"]="The Sims! <br>The games in The Sims series are largely sandbox games, in that they lack any defined goals (except for some later expansion packs and console versions which introduced this gameplay style). The player creates virtual people called 'Sims' and places them in houses and helps direct their moods and satisfy their desires. Players can either place their Sims in pre-constructed homes or build them themselves.";
+  gameInfo["RealReal"]= "a Simulation game! <br /> You're all about realism. These games offer a true experience in eveything from piloting, to truck driving, to being a doctor!";
+  gameInfo["RealGritty"]="Call of Duty! <br>Call of Duty is a first-person shooter video game franchise. The series began on Microsoft Windows, and expanded to consoles and handhelds. Several spin-off games have been released. The earlier games in the series are set primarily in World War II, but later games like Call of Duty 4: Modern Warfare are set in modern times or in futuristic settings.";
+  gameInfo["GrittyFun"]="Fallout! <br>Fallout is a series of satirical post-apocalyptic role-playing video games. The series is set during the 22nd and 23rd centuries, and its atompunk retrofuturistic setting and artwork are influenced by the post-war culture of 1950s America, with its combination of hope for the promises of technology and the lurking fear of nuclear annihilation.";
+  gameInfo["GrittyExciting"]="The Last of Us! <br>Players control Joel, a smuggler tasked with escorting a teenage girl, Ellie, across a post-apocalyptic United States. The Last of Us is played from a third-person perspective; players use firearms and improvised weapons, and can use stealth to defend against hostile humans and cannibalistic creatures infected by a mutated strain of the Cordyceps fungus.";
+  gameInfo["GrittyCreative"]="Bioshock! <br>BioShock is set in 1960. The player guides the protagonist, Jack, after his airplane crashes in the ocean near the bathysphere terminus that leads to the underwater city of Rapture. Built by the business magnate Andrew Ryan, the city was intended to be an isolated utopia, but the discovery of ADAM, a genetic material which can be used to grant superhuman powers, initiated the city's turbulent decline.";
+  gameInfo["GrittyReal"]="Heavy Rain! <br>The game features four protagonists involved with the mystery of the Origami Killer, a serial murderer who uses extended periods of rainfall to drown his victims. The player interacts with the game by performing actions highlighted on screen related to motions on the controller, and in some cases, performing a series of quick time events. The player's decisions and actions during the game affect the narrative; the main characters can be killed, and certain actions may lead to alternative scenes and endings.";
+  gameInfo["GrittyGritty"]="a Horror game! <br /> You're looking for a gritty experience. Horror games let you fully immerse into a dark world of twisted scenarios that will keep you engrossed.";
+
+
+}
+
+
+  var gameInfo = new Array();
+  populateInfo(gameInfo);
+
+
+
+document.getElementById("grade").innerHTML = gameInfo[gameselect];
+
+
+//Which game to play based on outcome
+function populateArray(finalGame) {
+
+        finalGame["special"]=new Image();
+        finalGame["FunFun"]=new Image();
+        finalGame["FunExciting"]= new Image();
+        finalGame["FunCreative"]=new Image();
+        finalGame["FunReal"]=new Image();
+        finalGame["FunGritty"]=new Image();
+        finalGame["ExcitingFun"]=new Image();
+        finalGame["ExcitingExciting"]=new Image();
+        finalGame["ExcitingCreative"]=new Image();
+        finalGame["ExcitingReal"]=new Image();
+        finalGame["ExcitingGritty"]=new Image();
+        finalGame["CreativeFun"]=new Image();
+        finalGame["CreativeExciting"]=new Image();
+        finalGame["CreativeCreative"]=new Image();
+        finalGame["CreativeReal"]=new Image();
+        finalGame["CreativeGritty"]=new Image();
+        finalGame["RealFun"]=new Image();
+        finalGame["RealExciting"]=new Image();
+        finalGame["RealCreative"]=new Image();
+        finalGame["RealReal"]=new Image();
+        finalGame["RealGritty"]=new Image();
+        finalGame["GrittyFun"]=new Image();
+        finalGame["GrittyExciting"]=new Image();
+        finalGame["GrittyCreative"]=new Image();
+        finalGame["GrittyReal"]=new Image();
+        finalGame["GrittyGritty"]=new Image();
+
+      finalGame["special"].src='vg.jpg';
+      finalGame["FunFun"].src='mobile.jpg';
+      finalGame["FunExciting"].src= 'rocketleague.jpg';
+      finalGame["FunCreative"].src='portal.jpg';
+      finalGame["FunReal"].src='gta.jpg';
+      finalGame["FunGritty"].src='reddead.jpg';
+      finalGame["ExcitingFun"].src='mario.jpg';
+      finalGame["ExcitingExciting"].src='party.jpg';
+      finalGame["ExcitingCreative"].src='skyrim.jpg';
+      finalGame["ExcitingReal"].src='assassinscreed.jpg';
+      finalGame["ExcitingGritty"].src='titanfall.jpg';
+      finalGame["CreativeFun"].src='cupheadcover.jpg';
+      finalGame["CreativeExciting"].src='rhythm.jpg';
+      finalGame["CreativeCreative"].src='mine.jpg';
+      finalGame["CreativeReal"].src='lifeisstrange.jpg';
+      finalGame["CreativeGritty"].src='borderlands.jpg';
+      finalGame["RealFun"].src='sports.jpg';
+      finalGame["RealExciting"].src='guitarhero.jpg';
+      finalGame["RealCreative"].src='sims.jpg';
+      finalGame["RealReal"].src='simulator.jpg';
+      finalGame["RealGritty"].src='callofduty.jpg';
+      finalGame["GrittyFun"].src='fallout.jpg';
+      finalGame["GrittyExciting"].src='thelastofus.jpg';
+      finalGame["GrittyCreative"].src='bioshock.jpg';
+      finalGame["GrittyReal"].src='heavyrain.jpg';
+      finalGame["GrittyGritty"].src='horror.jpg';
+
+    }
+    var finalGame = new Array();
+    populateArray(finalGame);
+
+    document.getElementById("grade2").src = finalGame[gameselect].src;
+
+
+return false; // required to not refresh the page; just leave this here
+} //this ends the submit function
+
+</script>
+
+
+</div>
+</body>
+</html>
